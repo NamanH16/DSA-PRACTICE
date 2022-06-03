@@ -1,0 +1,46 @@
+/*Given two string s and t, write a function to check if s contains all characters of t (in the same order as they are in string t).
+E.g. : s = “abchjsgsuohhdhyrikkknddg” contains all characters of t=”coding” in the same order. So function will return true.*/
+#include <bits/stdc++.h>
+using namespace std;
+
+bool helper(char str1[], char str2[], int m, int n)
+{
+    if (m == 0)
+    {
+        return true;
+    }
+    if (n == 0)
+    {
+        return false;
+    }
+
+    if (str1[m - 1] == str2[n - 1])
+    {
+        return helper(str1, str2, m - 1, n - 1);
+    }
+    else
+    {
+        return helper(str1, str2, m, n - 1);
+    }
+}
+
+bool checksequenece(char large[], char *small)
+{
+    int m = strlen(small);
+    int n = strlen(large);
+    return helper(small, large, m, n);
+}
+
+int main()
+{
+    char large[10000];
+    char small[10000];
+    cin >> large;
+    cin >> small;
+    bool x = checksequenece(large, small);
+
+    if (x)
+        cout << "true";
+    else
+        cout << "false";
+}
