@@ -11,10 +11,20 @@ public:
         // }
         // return -1;
         
-        // Better
-        sort(nums.begin(),nums.end());
-        for(int i=1;i<nums.size();i++){
-            if(nums[i-1]==nums[i]){
+        // Better(O(nlogn))
+        // sort(nums.begin(),nums.end());
+        // for(int i=1;i<nums.size();i++){
+        //     if(nums[i-1]==nums[i]){
+        //         return nums[i];
+        //     }
+        // }
+        // return -1;
+        
+        // Best
+        unordered_map<int,int>mp;
+        for(int i=0;i<nums.size();i++){
+            mp[nums[i]]++;
+            if(mp[nums[i]]>1){
                 return nums[i];
             }
         }
