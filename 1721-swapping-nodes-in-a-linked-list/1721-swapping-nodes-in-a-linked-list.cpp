@@ -13,8 +13,8 @@ private:
     ListNode* kNodefromBack(ListNode* head, int k)
     {
         ListNode *t = head;
-        int cnt=len(head)-k;
-        while(cnt>0){
+        int cnt=len(head);
+        while(cnt!=k){
             t=t->next;
             cnt--;
         }
