@@ -11,18 +11,22 @@
  */
 class Solution {
 private:
-    void solve(TreeNode *root, vector<int>&sol){
+    int result=0, count=0;
+    void solve(TreeNode*root, int k){
         if(root==NULL)return;
-        if(root->left)solve(root->left,sol);
-        sol.push_back(root->val);
-        if(root->right)solve(root->right, sol);
+        solve(root->left, k);
+        count++;
+        if(count==k){
+            result=root->val;
+            return;
+        }
+        solve(root->right, k);
     }
     
 public:
     int kthSmallest(TreeNode* root, int k) {
         // inorder traversal of a bst always gives out sorted array
-        vector<int> sol;
-        solve(root,sol);
-        return sol[k-1];
+        solve(root,k);
+        return result;
     }
 };
