@@ -14,10 +14,19 @@ public:
         if (!head || !head->next) {
             return head;
         }
-        ListNode* first = head;
-        ListNode* second = head->next;
-        first->next = swapPairs(second->next);
-        second->next = first;
-        return second;
+        ListNode *temp = NULL;
+        temp=head->next;
+        head->next=swapPairs(head->next->next);
+        temp->next=head;
+        return temp;
+        /*
+        ListNode* temp; // temporary pointer to store head -> next
+        temp = head->next; // give temp what he want
+        
+        head->next = swapPairs(head->next->next); // changing links
+        temp->next = head; // put temp -> next to head
+        
+        return temp; // now after changing links, temp act as our head
+        */
     }
 };
