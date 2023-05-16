@@ -1,22 +1,16 @@
 class Solution {
 public:
-    int helper(vector<int> &mem, int n){
-        if(n==0)return 0;
-        if(mem[n]!=-1)return mem[n];
-        int ans=-1;
-        if(n==1){
-            return 1;
-        }else if(n==2){
-            return 2;
-        }else{
-            mem[n]=helper(mem,n-1)+helper(mem,n-2);
-        }
-        ans=mem[n];
-        return ans;
-    }
-    
     int climbStairs(int n) {
-        vector<int> mem(n+1, -1);
-        return helper(mem,n);
+        if(n==0)return 0;
+        else if(n==1)return 1;
+        else if(n==2)return 2;
+        vector<int>dp(n+1);
+        dp[0]=0;
+        dp[1]=1;
+        dp[2]=2;
+        for(int i=3;i<=n;i++){
+            dp[i]=dp[i-1]+dp[i-2];
+        }
+        return dp[n];
     }
 };
