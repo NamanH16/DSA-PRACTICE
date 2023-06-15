@@ -1,18 +1,18 @@
 class Solution {
 public:
     int maxProfit(vector<int>& prices) {
-        // we need max profit, i.e. max diff possible
-        // for this max-min is our ans
-        int n = prices.size();
-        int mn=INT_MAX, mxdiff=INT_MIN;
-        for(int i=0;i<n;i++){
-            if(mn>prices[i]){
+        // in order to get the max profit
+        // the difference should be max as well
+        // mx-mn
+        int mxProfit = INT_MIN, mn=INT_MAX;
+        for(int i=0;i<prices.size();i++){
+            if(prices[i]<mn){
                 mn=prices[i];
             }
-            if(prices[i]-mn>mxdiff){
-                mxdiff=prices[i]-mn;
+            if(prices[i]-mn>mxProfit){
+                mxProfit=prices[i]-mn;
             }
         }
-        return mxdiff;
+        return mxProfit;
     }
 };
