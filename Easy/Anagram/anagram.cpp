@@ -12,19 +12,28 @@ class Solution
         
         // Your code here
         
-        sort(a.begin(), a.end());
-        sort(b.begin(), b.end());
-        return a==b;
-        
-        // unordered_map<char, int> mp;
-        // for(char x:a){
-        //     mp[x]++;
-        // }
-        // for(char m:b){
-        //     if(mp.find(m)!=mp.end()){
-                
-        //     }
-        // }
+        // sort(a.begin(), a.end());
+        // sort(b.begin(), b.end());
+        // return a==b;
+        if(a.length()!=b.length())return false;
+        unordered_map<char, int> mp;
+        for(char x:a){
+            mp[x]++;
+        }
+        int cnt=0;
+        for(char m:b){
+            if(mp.find(m)!=mp.end()){
+                mp[m]--;
+            }else{
+                return false;
+            }
+        }
+        for(auto x:mp){
+            if(x.second!=0){
+                return false;
+            }
+        }
+        return true;
     }
 
 };
