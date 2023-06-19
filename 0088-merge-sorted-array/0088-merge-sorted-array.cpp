@@ -1,27 +1,23 @@
 class Solution {
 public:
-    void merge(vector<int>& n1, int m, vector<int>& n2, int n) {
-        int *a = new int[m+n];
-        int i=0, j=0,k=0;
-        while(i<m && j<n){
-            if(n1[i]<n2[j]){
-                a[k]=n1[i];
-                k++;i++;
+    void merge(vector<int>& nums1, int m, vector<int>& nums2, int n) {
+        int l=m-1, r=n-1, k=m+n-1;
+        while(l>=0 && r>=0){
+            if(nums1[l]<nums2[r]){
+                nums1[k]=nums2[r];
+                k--;r--;
             }else{
-                a[k]=n2[j];
-                k++;j++;
+                nums1[k]=nums1[l];
+                k--;l--;
             }
         }
-        while(i<m){
-            a[k]=n1[i];
-            k++;i++;
+        while(l>=0){
+            nums1[k]=nums1[l];
+            k--;l--;
         }
-        while(j<n){
-            a[k]=n2[j];
-            k++;j++;
-        }
-        for(int i=0;i<n1.size();i++){
-            n1[i]=a[i];
+        while(r>=0){
+            nums1[k]=nums2[r];
+            k--;r--;
         }
     }
 };
