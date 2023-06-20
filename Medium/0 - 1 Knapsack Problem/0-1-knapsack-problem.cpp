@@ -8,26 +8,26 @@ class Solution
 {
     public:
     //Function to return max value that can be put in knapsack of capacity W.
-    int solve(int in, int w, int *wt,int *val,vector<vector<int>> &dp){
-        if(in==0){
-            if(wt[0]<=w){
-                return val[0];
-            }
-            return 0;
-        }
-        if(dp[in][w]!=-1)return dp[in][w];
-        int notTake = 0+solve(in-1, w, wt, val,dp);
-        int take = -1;
-        if(wt[in]<=w){
-            take=solve(in-1, w-wt[in],wt,val,dp)+val[in];
-        }
-        return dp[in][w]= max(take, notTake);
-    }
     int knapSack(int W, int wt[], int val[], int n) 
     { 
        // Your code here
-       vector<vector<int>> dp(n, vector<int>(W+1, -1));
-       return solve(n-1,W, wt, val,dp);
+       vector<vector<int>> dp(n,vector<int>(W+1, 0));
+       for(int i=wt[0];i<=W;i++){
+           if(i>=wt[0]){
+               dp[0][i]=val[0];
+           }
+       }
+       for(int in=1;in<n;in++){
+           for(int w=0;w<=W;w++){
+            int notTake = dp[in-1][w];
+            int take = 0;
+            if(wt[in]<=w){
+                take=dp[in-1][w-wt[in]]+val[in];
+            }
+            dp[in][w]= max(take, notTake);
+           }
+       }
+       return dp[n-1][W];
     }
 };
 
