@@ -6,7 +6,7 @@ public:
         while(i<n && s[i]=='a'){
             i++;
         }
-        if(i>=s.size()){
+        if(i==n){
             s[s.size()-1]='z';
             return s;
         }
