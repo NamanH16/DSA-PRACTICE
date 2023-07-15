@@ -9,15 +9,13 @@ public:
         while(j<n){
             sum += nums[j];
             mp[nums[j]]++;
-            if(mp.size()==k){
-                ans = max(ans, sum);
-            }
-            if(j-i+1 == k){
+            if(j-i+1==k){
+                if(mp.size()==k){
+                    ans = max(sum , ans);
+                }
                 sum -= nums[i];
                 mp[nums[i]]--;
-                if(mp[nums[i]]==0){
-                    mp.erase(nums[i]);
-                }
+                if(mp[nums[i]]==0)mp.erase(nums[i]);
                 i++;
             }
             j++;
