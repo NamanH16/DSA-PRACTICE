@@ -9,47 +9,37 @@ using namespace std;
 // User function template for C++
 
 class Solution{
-    private:
-    bool isSafe(int newx,int newy, vector<vector<bool>>&vis,vector<vector<int>> &m, int n){
-        if((newx>=0 && newx<n) && (newy>=0 && newy<n) && vis[newx][newy]!=1 && m[newx][newy]==1){
-            return true;
-        }
-        return false;
+    public:
+    bool isSafe(int i,int j,vector<vector<int>> vis,vector<vector<int>> m,int n){
+        return ((i>=0 && i<n) && (j>=0 && j<n) && vis[i][j]!=1 && m[i][j]==1);
     }
-    void solve(int x,int y,vector<vector<int>> &m,int n,vector<string>&ans,vector<vector<bool>>&vis,string path){
-        if(x==n-1 && y==n-1){
+    void solve(int i,int j,vector<vector<int>> &m,vector<vector<int>> &vis,vector<string> &ans,int n,string path){
+        if(i==n-1 && j==n-1){
             ans.push_back(path);
             return;
         }
-        vis[x][y]=1;
-        // Down
-        if(isSafe(x+1,y,vis,m,n)){
-            solve(x+1,y,m,n,ans,vis,path+'D');
+        vis[i][j]=1;
+        if(isSafe(i+1, j, vis, m, n)){
+            solve(i+1, j, m,vis, ans, n, path+'D');
         }
-        // Left
-        if(isSafe(x,y-1,vis,m,n)){
-            solve(x,y-1,m,n,ans,vis,path+'L');
+        if(isSafe(i, j+1, vis, m, n)){
+            solve(i, j+1, m,vis, ans, n, path+'R');
         }
-        // Right
-        if(isSafe(x,y+1,vis,m,n)){
-            solve(x,y+1,m,n,ans,vis,path+'R');
+        if(isSafe(i, j-1, vis, m, n)){
+            solve(i, j-1, m,vis, ans, n, path+'L');
         }
-        // Up
-        if(isSafe(x-1,y,vis,m,n)){
-            solve(x-1,y,m,n,ans,vis,path+'U');
+        if(isSafe(i-1, j, vis, m, n)){
+            solve(i-1, j, m,vis, ans, n, path+'U');
         }
-        vis[x][y]=0;
+        vis[i][j]=0;
     }
-    public:
     vector<string> findPath(vector<vector<int>> &m, int n) {
         // Your code goes here
+        vector<vector<int>> vis(n, vector<int>(n, 0));
         vector<string> ans;
-        if(m[0][0]==0){
-            return ans;
-        }
-        vector<vector<bool>>vis(n, vector<bool>(n,false));
+        if(m[0][0]==0)return ans;
         string path="";
-        solve(0,0,m,n,ans,vis,path);
+        solve(0, 0, m, vis, ans, n, path);
         return ans;
     }
 };
