@@ -11,21 +11,21 @@ using namespace std;
 class Solution{
     
     public:
-    vector<int> help_classmate(vector<int> arr, int n) 
+    vector<int> help_classmate(vector<int> &heights, int n) 
     { 
         // Your code goes here
-        vector<int> ans(n, -1);
+        vector<int> v(n,-1);
         stack<int> st;
-        for(int i=n-1;i>=0;i--){
-            while(!st.empty() && st.top()>=arr[i]){
+        for(int i=n-1;i>=0;--i){
+            while(!st.empty() && heights[st.top()]>=heights[i]){
                 st.pop();
             }
             if(!st.empty()){
-                ans[i]=st.top();
+                v[i]=heights[st.top()];
             }
-            st.push(arr[i]);
+            st.push(i);
         }
-        return ans;
+        return v;
     } 
 };
 
