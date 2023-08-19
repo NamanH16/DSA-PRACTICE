@@ -5,63 +5,33 @@
 using namespace std;
 
 // } Driver Code Ends
-//User function template for C++
+//Back-end complete function template for C++
 
 class Solution 
 {
-    private:
-    bool knows(vector<vector<int> >& M,int a,int b){
-        if(M[a][b]==1){
-            return true;
-        }
-        return false;
-    }
-    
     public:
     //Function to find if there is a celebrity in the party or not.
     int celebrity(vector<vector<int> >& M, int n) 
     {
-        stack<int>st;
-        for(int i=0;i<n;i++){
-            st.push(i);
-        }
-        while(st.size()>1){
-            int a = st.top();
-            st.pop();
-            
-            int b = st.top();
-            st.pop();
-            
-            if(knows(M,a,b)){
-                st.push(b);
+        int i=0, j=n-1;
+        while(i<j){
+            if(M[i][j]==1){
+                i++;
             }else{
-                st.push(a);
+                j--;
             }
         }
-        int candidate = st.top(); // potential celebrity, now we need to verify
-        bool rowCheck = false;
-        int zeroCount=0;
-        for(int i=0;i<n;i++){
-            if(M[candidate][i]==0){
-                zeroCount++;
+        // i is the potential celebrity
+        for(int k=0;k<n;k++){
+            if((k!=i) && (M[i][k] || !M[k][i])){
+                return -1;
             }
         }
-        if(zeroCount==n){
-            rowCheck=true;
-        }
-        bool colCheck = false;
-        int oneCount=0;
-        for(int i=0;i<n;i++){
-            if(M[i][candidate]==1){
-                oneCount++;
-            }
-        }
-        if(oneCount==n-1){
-            colCheck=true;
-        }
-        return (rowCheck && colCheck)?candidate:-1;
+        return i;
     }
 };
+
+
 
 //{ Driver Code Starts.
 
