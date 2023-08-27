@@ -19,7 +19,8 @@ public:
             len++;
         }
         tail->next=head;
-        if(k%=len){
+        k%=len;
+        if(k<len){
             for(int i=0;i<len-k;i++){
                 tail=tail->next;
             }
