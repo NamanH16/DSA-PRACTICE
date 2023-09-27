@@ -13,15 +13,17 @@ class Solution{
     public:
     vector<int> leaders(int a[], int n){
         // Code here
-        vector<int> ans;
-        int mx = a[n-1];
+        stack<int> st;
         for(int i=n-1;i>=0;i--){
-            if(a[i]>=mx){
-                mx=a[i];
-                ans.push_back(mx);
+            if(st.empty() || st.top()<=a[i]){
+                st.push(a[i]);
             }
         }
-        reverse(ans.begin(), ans.end());
+        vector<int> ans;
+        while(!st.empty()){
+            ans.push_back(st.top());
+            st.pop();
+        }
         return ans;
     }
 };
